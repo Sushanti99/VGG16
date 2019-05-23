@@ -2,8 +2,6 @@
 # coding: utf-8
 
 # In[1]:
-
-
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 from keras.applications.vgg16 import preprocess_input
@@ -15,8 +13,6 @@ import numpy as np
 
 
 # In[14]:
-
-
 # Process Model
 model = VGG16()
 image = load_img("D:/Projects/VGG16/cars.jpg", target_size=(224, 224))
@@ -28,10 +24,6 @@ image = preprocess_input(image)
 pred = model.predict(image)
 print('Predicted:', decode_predictions(pred, top=3)[0])
 np.argmax(pred[0])
-
-
-# In[15]:
-
 
 # Grad-CAM algorithm
 specoutput=model.output[:, 668]
@@ -49,10 +41,6 @@ heatmap /= np.max(heatmap)
 plt.matshow(heatmap)
 plt.show()
 
-
-# In[17]:
-
-
 # Superimposing heatmap
 import cv2
 img = cv2.imread("D:/Projects/VGG16/cars.jpg")
@@ -61,28 +49,4 @@ heatmap = np.uint8(255 * heatmap)
 heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
 superimposed_img = heatmap * 0.4 + img
 cv2.imwrite('heatmap.jpg', superimposed_img)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
